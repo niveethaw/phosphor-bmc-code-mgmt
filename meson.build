@@ -59,11 +59,20 @@ deps = [cereal_dep, pdi_dep, phosphor_logging_dep, sdbusplus_dep]
 
 ssl_dep = dependency('openssl')
 
-systemd_dep = dependency('systemd')
-systemd_system_unit_dir = systemd_dep.get_variable(
-    'systemd_system_unit_dir',
-    pkgconfig_define: ['prefix', get_option('prefix')],
-)
+systemd = dependency('systemd')
+systemd_system_unit_dir = systemd.get_variable('systemdsystemunitdir')
+
+unit_files = [
+    'obmc-flash-bmc-setenv@.service.in',
+    'reboot-guard-disable.service.in',
+    'reboot-guard-enable.service.in',
+    'force-reboot.service.in',
+    'usr-local.mount.in',
+    'xyz.openbmc_project.Software.BMC.Updater.service.in',
+    'xyz.openbmc_project.Software.Download.service.in',
+    'xyz.openbmc_project.Software.Sync.service.in',
+    'xyz.openbmc_project.Software.Version.service.in'
+]
 
 build_tests = get_option('tests')
 
