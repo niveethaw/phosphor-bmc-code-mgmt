@@ -1,6 +1,6 @@
 #include "package_parser.hpp"
 
-#include <libpldm/edac.h>
+// #include <libpldm/edac.h>
 #include <libpldm/firmware_update.h>
 
 #include <phosphor-logging/lg2.hpp>
