@@ -5,10 +5,10 @@ Description=Phosphor Version Software Manager
 ExecStartPre=/bin/sh -c 'mkdir -p /var/tmp/images/'
 ExecStartPre=/bin/sh -c 'rm -rf /var/tmp/images/*'
 ExecStartPre=/bin/sh -c 'ln -s /var/tmp/images /tmp/images'
-ExecStart=/usr/bin/phosphor-version-software-manager
+ExecStart=/usr/libexec/phosphor-code-mgmt/phosphor-version-software-manager
 Restart=always
 Type=dbus
-BusName={BUSNAME}
+BusName=xyz.openbmc_project.Software.Version
 
 [Install]
 WantedBy=multi-user.target

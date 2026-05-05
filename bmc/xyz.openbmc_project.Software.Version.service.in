@@ -6,7 +6,7 @@ ExecStartPre=/bin/sh -c 'mkdir -p /tmp/images'
 ExecStart=/usr/libexec/phosphor-code-mgmt/phosphor-version-software-manager
 Restart=always
 Type=dbus
-BusName={BUSNAME}
+BusName=xyz.openbmc_project.Software.Version
 
 [Install]
 WantedBy=multi-user.target
