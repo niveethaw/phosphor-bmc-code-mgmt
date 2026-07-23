@@ -187,7 +187,20 @@ sdbusplus::async::task<void> SoftwareManager::handleInterfaceAddedGuarded(
         co_return;
     }
 
-    co_await initDevice(service, path, optConfig.value());
+    const bool accepted = co_await initDevice(service, path, config);
+
+    if (accepted && devices.contains(config.objectPath))
+    {
+        auto& device = devices[config.objectPath];
+
+        if (device->softwareCurrent)
+        {
+            co_await device->softwareCurrent->createInventoryAssociations(true);
+
+            device->softwareCurrent->setActivation(
+                SoftwareActivation::Activations::Active);
+        }
+    }
 
     co_return;
 }
