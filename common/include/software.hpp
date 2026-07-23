@@ -98,6 +98,9 @@ class Software : private SoftwareActivation
     static long int getRandomId();
 
   protected:
+    // object path of this software
+    const sdbusplus::object_path objectPath;
+
     // @returns the version purpose
     // @returns std::nullopt in case the version has not been set
     std::optional<SoftwareVersion::VersionPurpose> getPurpose();
