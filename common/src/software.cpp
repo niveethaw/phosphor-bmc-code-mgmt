@@ -63,7 +63,21 @@ sdbusplus::async::task<> Software::createInventoryAssociations(bool isRunning)
     }
     catch (std::exception& e)
     {
-        error("Failed to create association with {ERROR}", "ERROR", e.what());
+        error(e.what());
+    }
+
+    if (!associationDefinitions)
+    {
+        std::string path = objectPath;
+        associationDefinitions =
+            std::make_unique<SoftwareAssociationDefinitions>(ctx, path.c_str());
+    }
+
+    std::vector<std::tuple<std::string, std::string, std::string>> assocs;
+
+    if (endpoint.empty())
+    {
+        associationDefinitions->associations(assocs);
         co_return;
     }
 
@@ -103,12 +117,15 @@ void Software::createInventoryAssociation(
     }
     else
     {
+        std::string path = objectPath;
         associationDefinitions =
             std::make_unique<SoftwareAssociationDefinitions>(
-                ctx, Software::objectPath,
+                ctx, path.c_str(),
                 SoftwareAssociationDefinitions::properties_t{assocs});
         associationDefinitions->emit_added();
     }
+
+    co_return;
 }
 
 void Software::setVersion(const std::string& versionStr,

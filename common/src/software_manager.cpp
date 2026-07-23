@@ -180,10 +180,12 @@ sdbusplus::async::task<void> SoftwareManager::handleInterfaceAddedGuarded(
         co_return;
     }
 
-    if (devices.contains(optConfig.value().objectPath))
+    auto& config = optConfig.value();
+
+    if (devices.contains(config.objectPath))
     {
         error("Device configured from {PATH} is already known", "PATH",
-              optConfig.value().objectPath);
+              config.objectPath);
         co_return;
     }
 
@@ -196,9 +198,6 @@ sdbusplus::async::task<void> SoftwareManager::handleInterfaceAddedGuarded(
         if (device->softwareCurrent)
         {
             co_await device->softwareCurrent->createInventoryAssociations(true);
-
-            device->softwareCurrent->setActivation(
-                SoftwareActivation::Activations::Active);
         }
     }
 
