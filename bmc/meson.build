@@ -231,7 +231,11 @@ if get_option('software-update-dbus-interface').allowed()
         install: true,
         install_dir: get_option('libexecdir') / 'phosphor-code-mgmt',
     )
-    unit_files += ['xyz.openbmc_project.Software.Manager.service.in']
+    if get_option('bmc-layout').contains('mmc')
+        unit_files += ['mmc/xyz.openbmc_project.Software.Manager.service.in']
+    else
+        unit_files += ['xyz.openbmc_project.Software.Manager.service.in']
+    endif
 else
     if get_option('bmc-layout').contains('mmc')
         unit_files += ['mmc/xyz.openbmc_project.Software.Version.service.in']
