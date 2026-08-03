@@ -1,7 +1,6 @@
 #include "config.h"
 
 #include "code_updater_manager.hpp"
-
 #include <sys/mount.h>
 
 #include <xyz/openbmc_project/ObjectMapper/client.hpp>
@@ -19,7 +18,6 @@ namespace manager
 
 using Association = std::tuple<std::string, std::string, std::string>;
 using Paths = std::vector<std::string>;
-
 bool CodeUpdateManager::copyImage()
 {
     std::error_code ec;
