@@ -82,8 +82,8 @@ auto Manager::processImage(sdbusplus::message::unix_fd image,
     softwareUtils::RemovablePath tmpDirToRemove(tmpDirPath);
 
     // Back up the tarball from the fd before unTar consumes it
-    serialize::createTarballBackup(false, "", fs::path("/proc/self/fd/") /
-                                                std::to_string(image.fd));
+    serialize::createTarballBackup(
+        false, "", fs::path("/proc/self/fd/") / std::to_string(image.fd));
 
     // Untar tarball into the tmp dir
     if (!softwareUtils::unTar(image, tmpDirPath.string()))

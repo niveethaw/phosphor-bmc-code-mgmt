@@ -161,7 +161,7 @@ TEST_F(DeviceTest, TestDeviceStartUpdateOnResetSuccess)
 sdbusplus::async::task<> testDeviceStartUpdateInvalidFD(
     sdbusplus::async::context& ctx, std::unique_ptr<ExampleDevice>& device)
 {
-    std::unique_ptr<SoftwareActivationProgress> activationProgress =
+    std::unique_ptr<SoftwareActivation> activationProgress =
         std::make_unique<SoftwareActivationProgress>(ctx, "/");
 
     sdbusplus::message::unix_fd image;

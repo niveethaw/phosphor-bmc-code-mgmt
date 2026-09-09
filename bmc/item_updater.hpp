@@ -383,7 +383,7 @@ class ItemUpdater : public ItemUpdaterInherit
      *
      * @param[in]  entryId - The version id to remove.
      */
-    void eraseDeferred(std::string entryId);
+    void eraseDeferred(const std::string& entryId);
 
     /** @brief Copies U-Boot from the currently booted BMC chip to the
      *  alternate chip.

@@ -117,7 +117,7 @@ void Software::createInventoryAssociation(
     }
     else
     {
-        std::string path = objectPath;
+        const std::string& path = objectPath;
         associationDefinitions =
             std::make_unique<SoftwareAssociationDefinitions>(
                 ctx, path.c_str(),

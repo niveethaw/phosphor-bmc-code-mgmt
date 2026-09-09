@@ -1,6 +1,7 @@
 #include "config.h"
 
 #include "code_updater_manager.hpp"
+
 #include <sys/mount.h>
 
 #include <xyz/openbmc_project/ObjectMapper/client.hpp>

@@ -852,7 +852,7 @@ void ItemUpdater::resetUbootEnvVars()
     updateUbootEnvVars(lowestPriorityVersion);
 }
 
-void ItemUpdater::eraseDeferred(std::string entryId)
+void ItemUpdater::eraseDeferred(const std::string& entryId)
 {
     // Same ordering as erase(): remove from activations first so
     // resetUbootEnvVars() doesn't see the version being deleted,
@@ -874,15 +874,14 @@ void ItemUpdater::eraseDeferred(std::string entryId)
     {
         removeReadOnlyPartition(entryId);
         auto path = it->second->path();
-        ctx.spawn(
-            [](ItemUpdater* self, std::string id,
-               std::string flashId) -> sdbusplus::async::task<> {
-                removePersistDataDirectory(flashId);
-                self->helper.clearEntry(flashId);
-                self->versions.erase(id);
-                self->updateManagers.erase(id);
-                co_return;
-            }(this, entryId, path));
+        ctx.spawn([](ItemUpdater* self, std::string id,
+                     std::string flashId) -> sdbusplus::async::task<> {
+            removePersistDataDirectory(flashId);
+            self->helper.clearEntry(flashId);
+            self->versions.erase(id);
+            self->updateManagers.erase(id);
+            co_return;
+        }(this, entryId, path));
     }
 }
 
