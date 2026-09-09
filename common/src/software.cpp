@@ -75,14 +75,14 @@ sdbusplus::async::task<> Software::createInventoryAssociations(bool isRunning)
 
     std::vector<std::tuple<std::string, std::string, std::string>> assocs;
 
-    if (endpoint.empty())
+    if (!endpoint.has_value())
     {
-        associationDefinitions->associations(assocs);
         co_return;
     }
 
-    if (!endpoint.has_value())
+    if (endpoint->str.empty())
     {
+        associationDefinitions->associations(assocs);
         co_return;
     }
 
@@ -125,7 +125,7 @@ void Software::createInventoryAssociation(
         associationDefinitions->emit_added();
     }
 
-    co_return;
+    return;
 }
 
 void Software::setVersion(const std::string& versionStr,
